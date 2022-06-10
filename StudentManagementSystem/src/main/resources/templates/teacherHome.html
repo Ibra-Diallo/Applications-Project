@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Student Managment System</title>
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/script.js"></script>
+    <link href="/customform.css" rel="stylesheet"/>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Student Management System</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a th:href="@{/}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<h4 th:if="${showErrorMessage}" th:text="${errorMessage}"></h4>
+
+<div class="register-photo">
+    <div class="form-container">
+        <div class="image-holder"></div>
+        <form action="#" method="POST" th:action="@{/add-grade}"
+              th:object="${gradeGiven}">
+            <h2 class="text-center"><strong>Add</strong> grades for student.</h2>
+            <div class="form-group">
+                <label>Student</label>
+                <select th:field="*{userId}" class="form-control">
+                    <option th:each="student : ${studentsList}"
+                            th:value="${student.id}"
+                            th:utext="${student.name}"/>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Course</label>
+                <select th:field="*{courseId}" class="form-control">
+                    <option th:each="course : ${coursesList}"
+                            th:value="${course.id}"
+                            th:utext="${course.name}"/>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Grade</label>
+                <input type="text" class="form-control" placeholder="Grade" th:field="*{grade}"/>
+            </div>
+            <div class="form-group">
+                <label>Feedback</label>
+                <input type="text" class="form-control" placeholder="Feedback" th:field="*{feedback}"/>
+            </div>
+            <div class="form-group">
+                <label>Teacher ID</label>
+                <input type="text" class="form-control" placeholder="Feedback" th:field="*{teacherId}" readonly/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block" type="submit">Add Grade</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
